@@ -1,0 +1,58 @@
+<!--somedata実験の場合はこれを二つの大カッコで囲む --> 
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍一覧{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block h1 %}書籍一覧{% endblock %}
+<!-- これがbase.htmlのblock h1のところに入る -->
+
+{% block content %}
+<div class="row">
+  
+  <!--通常の登録図書表示-->
+  <div class="col-9">
+    <!-- col-後の数字がウィンドウにおける表示エリアの横幅の割合となる -->
+    {% for item in object_list %}
+    <!-- item変数にobject_listに入ってるデータをひとつずつ取り出しながら入れる-->
+    <!--object_listはListViewで指定したすべてのデータ（この場合はBookのデータ）が入っている-->
+    <div class="p-4 m-4 bg-light border border-success rounded">
+      <!--successはBootstrapでは緑色を示す-->
+      <h2 class="text-success">{{ item.title }}</h2>
+      <!--item変数に入ったobject_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
+
+      <img src="{{ item.thumbnail.url }}" class="img-thumbnail" />
+      <!--画像データをHTMLで指定する場合は、フィールド名の後に.urlを付ける-->
+
+      <h6>カテゴリ：{{ item.category }}</h6>
+      <!--item変数に入ったobject_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
+
+      <div class="mt-3">
+        <a href="{% url 'detail-book' item.pk %}">詳細へ</a>
+        <!-- 各アイテムのプライマリーキーをセットしたdetail-bookにリンクを貼る -->
+      </div>
+    </div>
+    <!--つまり、object_listに入っているデータを、itemという名前で順番に呼び出せるようにしてるのがこのhtmlファイルである-->
+    {% endfor %}
+  </div>
+
+
+  <!--レビュー評価順の表示エリア-->
+  <div class="col-3">
+    <h2>評価順TOP2</h2>
+    <!-- 元はin ranking_list -->
+    {% for ranking_book in page_obj %}
+      <div class="p-4 m-4 bg-light border border-success rounded">
+        <h3 class="text-success h5">{{ ranking_book.title }}</h3>
+        <img src="{{ ranking_book.thumbnail.url }}" class="img-thumbnail" />
+
+        <h6>評価：{{ranking_book.avg_rating|floatformat:2}}点</h6>
+        <a href="{% url 'detail-book' ranking_book.id %}">詳細を見る</a>
+      </div>
+    {% endfor %}
+    {% include 'book/components/pagination.html' %}
+  </div>
+</div>
+{% endblock content %}
+<!-- これがbase.htmlのblock contentのところに入る -->

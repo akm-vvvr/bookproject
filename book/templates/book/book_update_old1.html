@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍修正{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block content %}
+  <form method='post'>{% csrf_token %}
+    {{form.as_p}}
+    <button type='submit'>修正する</button>
+  </form>
+{% endblock content %}

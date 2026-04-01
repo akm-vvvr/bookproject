@@ -1,0 +1,26 @@
+<!--somedata実験の場合はこれを二つの大カッコで囲む --> 
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}本棚アプリ{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block h1 %}本棚アプリ{% endblock %}
+<!-- これがbase.htmlのblock h1のところに入る -->
+
+{% block content %}
+<div class="row">
+  <div class="col-3">
+    <h2>評価順</h2>
+    {% for ranking_book in ranking_list %}
+      <div class="p-4 m-4 bg-light border border-success rounded">
+        <h3 class="text-success h5">{{ ranking_book.title }}</h3>
+        <img src="{{ ranking_book.thumbnail.url }}" class="img-thumbnail" />
+
+        <h6>評価：{{ranking_book.avg_rating}}点</h6>
+        <a href="{% url 'detail-book' ranking_book.id %}">詳細を見る</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

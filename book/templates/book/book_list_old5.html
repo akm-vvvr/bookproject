@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍一覧{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block content %}
+  {% for item in object_list %}
+  <!-- item変数にobject_listに入ってるデータをひとつずつ取り出しながら入れる-->
+  <!--object_listはListViewで指定したすべてのデータ（この場合はBookのデータ）が入っている-->
+  <div class="card">
+    <h5 class="card-header">{{ item.title }}</h5>
+    <!--item変数に入ったobject_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
+    <div class="card-body">
+      <p class="card-text">{{ item.text }}</p>
+      <!--item変数に入ったobject_listのtext要素が入る。models.pyのBookクラスのtextで定義したもの-->
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h6 class="card-title">{{ item.category }}</h6>
+      <!--item変数に入ったobject_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
+    </div>
+  </div>
+  <!--つまり、object_listに入っているデータを、itemという名前で順番に呼び出せるようにしてるのがこのhtmlファイルである-->
+  {% endfor %}
+{% endblock content %}
+<!-- これがbase.htmlのblock contentのところに入る -->

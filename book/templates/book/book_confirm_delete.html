@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍削除{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block content %}
+  <form method='post'>
+    {% csrf_token %}
+    <button type='submit'>{{ object.title }}を削除する</button>
+  </form>
+{% endblock %}

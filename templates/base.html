@@ -1,0 +1,49 @@
+{% load static %}
+<!--staticフォルダにあるcssファイルを読み込める様にするための手順1-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}| 本棚アプリ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'book/css/style.css' %}">
+    <!--staticフォルダにあるcssファイルを読み込める様にするための手順2-->
+    <!--「load static」と「static」はセットで使うと覚えておこう-->
+
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-success sticky-top">
+        <div class="navbar-nav d-flex flex-row">
+            <a class="nav-link mx-3" href="{% url 'list-book' %}">書籍一覧</a>
+            <!-- <a class="nav-link mx-3" href="{% url 'index' %}">書籍一覧</a> -->
+            <a class="nav-link mx-3" href="{% url 'create-book' %}">書籍登録</a>
+            <a class="nav-link mx-3" href="{% url 'index' %}">トップページへ</a>
+        </div>
+
+        <div class="navbar-nav d-flex flex-row">
+          {% if request.user.is_authenticated %}
+            <!--様々な変数を持っているrequesuオブジェクトからuserという変数を選択-->
+            <!--userにはブラウザで何らかのURLを入力した時、ユーザーの情報があれば、そのuser情報を提供表示する-->
+            <!--.is_authenticatedはユーザーがログインしているかどうかを判断するブール値が入る-->
+            <!--つまり、全体でユーザーがログインしているかどうかを知る事が出来る-->
+            <form action="{% url 'accounts:logout' %}" method="post">
+              {% csrf_token %}
+              <!--postメソッドにはハッキング防止のため、このcsrf_tokenを付けるのがルールになっている-->
+              <input type="submit" value="ログアウト">
+            </form>
+            <!--これでは走らない <a class="nav-link mx-3" href="{% url 'accounts:logout' %}">ログアウト</a> -->
+          {% else %}
+            <a class="nav-link mx-3" href="{% url 'accounts:login' %}">ログイン</a>
+            <a class="nav-link mx-3" href="{% url 'accounts:signup' %}">会員登録</a>
+          {% endif %}
+        </div>
+    </nav>
+    <div class='p-4'>
+      <h1>{% block h1 %}{% endblock %}</h1>
+      {% block content %}{% endblock content %}
+    </div>
+  </body>
+</html>

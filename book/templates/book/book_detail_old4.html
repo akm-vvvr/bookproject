@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}{{ object.title }}{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block h1 %}書籍詳細{% endblock %}
+<!-- これがbase.htmlのblock h1のところに入る -->
+
+{% block content %}
+  <div class="p-4 m-4 bg-light border border-success rounded">
+    <h2 class="text-success">{{ object.title }}</h2>
+    <!--object_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
+    <!--objectはviews.pyで定義したmodel(この場合はBook)のすべての要素が入っている-->
+
+    <img src="{{ object.thumbnail.url }}" class="img-thumbnail" />
+    <!--画像データをHTMLで指定する場合は、フィールド名の後に.urlを付ける-->
+
+    <p>{{ object.text }}</p>
+
+    <div class="border p-4 mb-2">
+        {% for review in object.review_set.all %}
+        <!--objectの後に.を付けてobjectに紐づいたモデル（この場合Reviewモデル）を指定すると、その紐づきモデルのデータを取り出せる-->
+        <!--views.pyのDetailBookViewクラスでreviewモデルを宣言する必要がない（ForeignKeyで紐づいているため）-->
+        <div>
+            <h3 class="h4">{{ review.title }}</h3>
+            <div class="px-2">
+                <span>（投稿ユーザー： {{ review.user.username }}）</span>
+                <!--objectに紐づいたreviewモデルの、更にそこに紐づいたuserモデルのusername項目を取り出している-->
+                <h6>評価： {{ review.rate }}点</h6>
+                <p>{{ review.text }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'list-book' %}" class="btn btn-primary">一覧へ</a>
+    <!-- <a href="{% url 'index' %}" class="btn btn-primary">一覧へ</a> -->
+    <a href="{% url 'review' object.pk %}" class="btn btn-primary">レビューする</a>
+    <a href="{% url 'update-book' object.pk %}" class="btn btn-primary">編集する</a>
+    <a href="{% url 'delete-book' object.pk %}" class="btn btn-primary">削除する</a>
+    <!--各リンクボタンの追加-->
+
+    <h6 class="card-title">{{ object.category }}</h6>
+    <!--object_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
+  </div>
+{% endblock content %}

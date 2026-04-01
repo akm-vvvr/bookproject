@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block content %}
+<h1>ログイン</h1>
+  <form method="post" class="p-4 m-4 bg-light border border-success rounded form-group">
+    {% csrf_token %}
+    <!--csrf_tokenはPOSTするメソッドで必ず入れる決まり。ワンタイムパスワードの様なもので、情報書き込みを保護している-->
+    {% for error in form.errors.values %}
+      {{ error }}
+    {% endfor %}
+    <!--エラーを表示させるためのコード-->
+
+    <label>
+        ユーザ ID
+    </label>
+
+    <input class="form-control" name="username">
+
+    <label>
+        パスワード
+    </label>
+
+    <input type="password" class="form-control" name="password">
+    <button type="submit" class="btn btn-success mt-4">ログインする</button>
+  </form>
+{% endblock %}

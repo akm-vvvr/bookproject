@@ -1,0 +1,11 @@
+{% for item in object_list %}
+<ul>
+  <!-- item変数にobject_listに入ってるデータをひとつずつ取り出しながら入れる-->
+  <!--object_listはListViewで指定したすべてのデータ（この場合はBookのデータ）が入っている-->
+  <li>{{ item.title }}</li> <!--item変数に入ったobject_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
+  <li>{{ item.text }}</li> <!--item変数に入ったobject_listのtext要素が入る。models.pyのBookクラスのtextで定義したもの-->
+  <li>{{ item.category }}</li> <!--item変数に入ったobject_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
+</ul>
+{% endfor %}
+
+<!--つまり、object_listに入っているデータを、itemという名前で順番に呼び出せるようにしてるのがこのhtmlファイルである-->

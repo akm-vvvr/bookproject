@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}アカウント作成{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block h1 %}アカウント作成{% endblock %}
+<!-- これがbase.htmlのblock h1のところに入る -->
+
+{% block content %}
+  <form method="post" class="p-4 m-4 bg-light border border-success rounded form-group">
+    {% csrf_token %}
+    <input type="text" name='username' class="form-control my-4" placeholder="ユーザー ID">
+    <input type="password" name='password1' class="form-control mt-4" placeholder="パスワード">
+    <input type="password" name='password2' class="form-control mt-4" placeholder="パスワード確認用">
+    <small class="mb-2 d-block text-start">パスワードは8文字以上で設定して下さい</small>
+
+    <!--password1,2はUserCreationformの中のフィールド名に対応している-->
+    <!--name=password1,2でDjangodeで定義したUserCreationformのフィールドにデータを送る事が出来る-->
+    <!--これ以外はBootstrapのコード-->
+
+    {% if form.errors %}
+      <span class="mb-2 small text-danger d-block text-start">利用出来ないユーザーIDパスワードの可能性があります。入力内容を再度ご確認下さい</span>
+    {% endif %}
+    
+    <button type="submit" class="btn btn-success m-2">アカウント作成</button>
+  </form>
+{% endblock %}
+<!-- これがbase.htmlのblock contentのところに入る -->

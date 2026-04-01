@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}レビュー投稿{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block h1 %}レビュー投稿{% endblock %}
+<!-- これがbase.htmlのblock h1のところに入る -->
+
+{% block content %}
+  <form method="post" class="p-4 m-4 bg-light border border-success rounded form-group">
+    {% csrf_token %}
+    <label>
+        対象書籍
+    </label>
+
+    <input class="form-control" value="{{ book.title }}" readonly>
+    <!--book.titleはget_context_dataの中で追加したcontext['book']に対応している-->
+    <!--book.titleでbookオブジェクトのtitleフィールドの情報を取得出来る-->
+
+    <label>
+        タイトル
+    </label>
+
+    <input class="form-control" name="title">
+
+    <label>
+        本文
+    </label>
+
+    <textarea class="form-control" name="text" rows="3"></textarea>
+    
+
+    <label>
+        星の数
+    </label>
+
+    <select class="form-control" name="rate">
+        <option value="0">0（最低）</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3（普通）</option>
+        <option value="4">4</option>
+        <option value="5">5（最高）</option>
+    </select>
+    <input type="hidden" name="book" value="{{ book.id }}">
+    <!--Reviewモデルはtitle,text,rate,user,book(この場合はレビューしたBookモデルデータのid番号)で構成され、送信には全部が必要-->
+    <!--contextでBookモデルの対象書籍の全データはbookキーワード内に入っているので、book.idでid番号はゲット可能-->
+    <!--ただし、表示する必要は無いのでhiddenで隠しデータにしている-->
+    <!--尚、userはviews.pyのform_valid関数処理で隠しデータとして追加しているので、ここでは特に記述の必要なし-->
+    <button type="submit" class="btn btn-success mt-4">投稿する</button>
+  </form>
+{% endblock content %}
+<!-- これがbase.htmlのblock contentのところに入る -->

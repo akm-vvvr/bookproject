@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍一覧{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block content %}
+  <div class="card">
+    <h5 class="card-header">{{ object.title }}</h5>
+    <!--object_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
+  <div class="card-body">
+      <p class="card-text">{{ object.text }}</p>
+      <!--object_listのtext要素が入る。models.pyのBookクラスのtextで定義したもの-->
+
+      <a href="{% url 'list-book' %}" class="btn btn-primary">一覧へ</a>
+      <a href="{% url 'update-book' object.pk %}" class="btn btn-primary">編集する</a>
+      <a href="{% url 'delete-book' object.pk %}" class="btn btn-primary">削除する</a>
+      <!--各リンクボタンの追加-->
+
+      <h6 class="card-title">{{ object.category }}</h6>
+      <!--object_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
+    </div>
+  </div>
+{% endblock content %}

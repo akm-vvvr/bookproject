@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+<!-- base.htmlを継承している-->
+
+{% block title %}書籍作成{% endblock %}
+<!-- これがbase.htmlのblock titleのところに入る -->
+
+{% block content %}
+  <form method='POST'>{% csrf_token %}
+    <!--csrf_tokenはPOSTするメソッドで必ず入れる決まり。ワンタイムパスワードの様なもので、情報書き込みを保護している-->
+    {{form.as_p}}
+    <!--Djangoのテンプレートのひとつ。viewsで指定されたmodelで定義された項目をpタグで囲って表示させる命令-->
+    <input type='submit' value='作成する'>
+  </form>
+{% endblock content %}
