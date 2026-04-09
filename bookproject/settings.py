@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import dj_database_url #デプロイ用PostgreSQL対応インポート
 
-
+import os  # ← これを追加！
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -149,6 +149,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # --------------Geminiが分析したデプロイ失敗の原因-----------------
+#これがあるとPCローカル上では動かないので注意！
+
 # これを追加！
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
