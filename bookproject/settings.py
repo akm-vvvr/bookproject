@@ -148,6 +148,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# --------------Geminiが分析したデプロイ失敗の原因-----------------
+# これを追加！
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# もし WhiteNoise を使っているなら、これも確認しておくと良いです
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+# --------------Geminiが分析したデプロイ失敗の原因ここまで-----------------
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
