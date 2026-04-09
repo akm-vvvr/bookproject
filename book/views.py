@@ -44,6 +44,10 @@ class DetailBookView(LoginRequiredMixin, DetailView): #DetailViewクラスを継
         
         # 1. この本に紐づく全レビューを取得（星評価順）
         review_list = self.object.review_set.all().order_by('-rate') #このid番号のBookモデルに紐づいているreviewモデルの全データ取得
+        #ここのモデルで定義されているBook側（親側）からForeignkeyで結びついているReviewモデル側（子側）のデータを全部とりにいくのが、
+        #.review_set.all()となる
+        #逆のパターンはclass CreateReviewViewのBook.objects.get(pk=self.kwargs['book_id'])でやってる
+        #（こっちはReviewモデルがメインで子から親に遡っている）
         
         # 2. ページネーション設定（例: 1ページがITEM_PER_PAGE件）
         paginator = Paginator(review_list, ITEM_PER_PAGE) #DjangoのPaginatorクラスからインスタンスpaginatorを生成

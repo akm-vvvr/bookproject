@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+
+import dj_database_url #デプロイ用PostgreSQL対応インポート
+
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,8 +46,20 @@ INSTALLED_APPS = [
     'book.apps.BookConfig', #bookアプリの認識
 ]
 
+# MIDDLEWARE = [
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
+
+#デプロイ用ミドルウェア込みのもの
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,6 +101,16 @@ DATABASES = {
     }
 }
 
+#デプロイ用コード
+if not DEBUG: #デプロイをするにはDEBUG変数をFalseにしないとエラーコードを第三者に見られてしまうため、これを入れる
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Replace this value with your local database's connection string.
+            default='postgresql://postgres:postgres@localhost:5432/bookproject',
+            conn_max_age=600
+        )
+    }
+#デプロイ用コードここまで
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -134,3 +160,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'index' #ログイン成功時に飛ぶHTMLページを記述している
 #LOGOUT_REDIRECT_URL = 'accounts:login' #ログアウト成功時に飛ぶHTMLページを記述している
 LOGOUT_REDIRECT_URL = 'index' #ログアウト成功時に飛ぶHTMLページを記述している
+
+#デプロイ用コード
+ALLOWED_HOSTS = ['*'] #DEBUG=Falseにした場合はALLOWED_HOSTS変数にドメイン名を入れる必要があるが、今回はすべてを許容する'*'で対応

@@ -22,7 +22,7 @@
       <h2 class="text-success">{{ item.title }}</h2>
       <!--item変数に入ったobject_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
 
-      <img src="{{ item.thumbnail.url }}" class="img-thumbnail" />
+      <img src="{{ item.thumbnail.url }}" style="height: 200px; width: auto; object-fit: contain;" class="img-thumbnail" />
       <!--画像データをHTMLで指定する場合は、フィールド名の後に.urlを付ける-->
 
       <h6>カテゴリ：{{ item.category }}</h6>
@@ -45,10 +45,10 @@
     {% for ranking_book in page_obj %}
       <div class="p-4 m-4 bg-light border border-success rounded">
         <h3 class="text-success h5">{{ ranking_book.title }}</h3>
-        <img src="{{ ranking_book.thumbnail.url }}" class="img-thumbnail" />
+        <img src="{{ ranking_book.thumbnail.url }}" style="height: 150px; width: auto; object-fit: contain;" class="img-thumbnail" />
 
         <h6>評価：{{ranking_book.avg_rating|floatformat:2}}点</h6>
-        <a href="{% url 'detail-book' ranking_book.id %}">詳細を見る</a>
+        <a href="{% url 'detail-book' ranking_book.id %}" >詳細を見る</a>
       </div>
     {% endfor %}
     {% include 'book/components/pagination.html' %}

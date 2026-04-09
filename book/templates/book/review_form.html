@@ -14,6 +14,8 @@
         対象書籍
     </label>
 
+    <h3 class="h4">{{ book.title }}</h3>
+
     <input class="form-control" value="{{ book.title }}" readonly>
     <!--book.titleはget_context_dataの中で追加したcontext['book']に対応している-->
     <!--book.titleでbookオブジェクトのtitleフィールドの情報を取得出来る-->
@@ -34,6 +36,15 @@
     <label>
         星の数
     </label>
+
+   <!-- <div class="rate-group" name="rate">
+    <label><input type="radio" name="rate" value="0"> 0（最低）</label><br>
+    <label><input type="radio" name="rate" value="1"> 1</label><br>
+    <label><input type="radio" name="rate" value="2"> 2</label><br>
+    <label><input type="radio" name="rate" value="3" checked> 3（普通）</label><br>
+    <label><input type="radio" name="rate" value="4"> 4</label><br>
+    <label><input type="radio" name="rate" value="5"> 5（最高）</label><br>
+</div> -->
 
     <select class="form-control" name="rate">
         <option value="0">0（最低）</option>
