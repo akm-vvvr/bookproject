@@ -151,16 +151,48 @@ STATIC_URL = '/static/'
 # --------------Geminiが分析したデプロイ失敗の原因-----------------
 #これがあるとPCローカル上では動かないので注意！
 
-# これを追加！
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# # これを追加！
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# もし WhiteNoise を使っているなら、これも確認しておくと良いです
+# # もし WhiteNoise を使っているなら、これも確認しておくと良いです
+# STORAGES = {
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
+# --------------Geminiが分析したデプロイ失敗の原因ここまで-----------------
+
+
+# --------------Geminiが分析したデプロイ失敗の原因2-----------------
+# もし古い DEFAULT_FILE_STORAGE = ... という記述があれば削除するかコメントアウトしてください
+
+# STORAGES = {
+#     # 静的ファイルの設定（必須）
+#     "default": {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#     },
+#     # メディアファイルの設定（画像アップロードなど）
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#     },
+# }
+
+# --------------Geminiが分析したデプロイ失敗の原因2ここまで-----------------
+
+# --------------Geminiが分析したデプロイ失敗の原因3-----------------
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STORAGES = {
+    # 1. 画像やファイルアップロード用の設定（これが足りなかった！）
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    # 2. 静的ファイル（CSS/JS）用の設定（WhiteNoiseを使用）
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-# --------------Geminiが分析したデプロイ失敗の原因ここまで-----------------
+
+# --------------Geminiが分析したデプロイ失敗の原因3ここまで-----------------
 
 MEDIA_URL = '/media/'
 
