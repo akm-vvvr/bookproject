@@ -1,12 +1,12 @@
 databases:
   - name: mysitedb
     plan: free
-    databaseName: akm-vvvr
-    user: akm-vvvr
+    databaseName: book_p
+    user: akm_book
 services:
   - type: web
     plan: free
-    name: akm-vvvr
+    name: akm_book_p
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn bookproject.asgi:application -k uvicorn.workers.UvicornWorker"
