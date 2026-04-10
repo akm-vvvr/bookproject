@@ -1,3 +1,5 @@
+#デプロイ時はこのファイルを使用superuser_for_on_web.py
+
 import os
 
 from django.core.management.base import BaseCommand

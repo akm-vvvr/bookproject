@@ -14,7 +14,7 @@
   <div class="p-4 m-4 bg-light border border-success rounded">
     <h2 class="text-success">{{ item.title }}</h2>
     <!--item変数に入ったobject_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
-    <img src="{{ item.thumbnail.url }}" class="img-thumbnail" />
+    <img src="{{ item.thumbnail.url }}" style="height: 200px; width: auto; object-fit: contain;" class="img-thumbnail" />
     <h6>カテゴリ：{{ item.category }}</h6>
     <!--item変数に入ったobject_listのcategory要素が入る。models.pyのBookクラスのcategoryで定義したもの-->
 

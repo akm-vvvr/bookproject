@@ -13,7 +13,7 @@
     <!--object_listのtitle要素が入る。models.pyのBookクラスのtitleで定義したもの-->
     <!--objectはviews.pyで定義したmodel(この場合はBook)のすべての要素が入っている-->
 
-    <img src="{{ object.thumbnail.url }}" class="img-thumbnail" />
+    <img src="{{ object.thumbnail.url }}" style="height: 200px; width: auto; object-fit: contain;" class="img-thumbnail" />
     <!--画像データをHTMLで指定する場合は、フィールド名の後に.urlを付ける-->
 
     <p>{{ object.text }}</p>
